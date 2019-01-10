@@ -104,8 +104,8 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      email: "ttoan1@gmail.com",
+      password: "123456",
       loading: false,
       errorMessage: ""
     };
@@ -121,11 +121,12 @@ export default class Login extends Component {
   }
 
   async componentDidMount() {
-    var email=  await AsyncStorage.getItem("email")
-    var password= await  AsyncStorage.getItem("password")
+    var email = await AsyncStorage.getItem("email");
+    var password = await AsyncStorage.getItem("password");
     this.setState({
-      email,password
-    })
+      email,
+      password
+    });
   }
 
   static navigationOptions = {
@@ -139,10 +140,9 @@ export default class Login extends Component {
   async onLoginPress() {
     this.setState({ errorMessage: "", loading: true });
     const { email, password } = this.state;
-
     await AsyncStorage.setItem("email", email);
     await AsyncStorage.setItem("password", password);
-
+    console.log("onLogin");
     if (email.trim() === "" || password.trim() === "") {
       this.setState({
         errorMessage: "Email and Password required.",
@@ -154,7 +154,8 @@ export default class Login extends Component {
         .signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(() => {
           this.setState({ errorMessage: "", loading: false });
-          this.props.navigation.navigate("Home");
+          console.log("Drawer");
+          this.props.navigation.navigate("Main");
         })
         .catch(error => {
           this.setState({ errorMessage: error.message, loading: false });
@@ -167,7 +168,10 @@ export default class Login extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#16a085" />
         <View behavior="padding" style={styles.container}>
           <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require("./images/logo.png")} />
+            <Image
+              style={styles.logo}
+              source={require("../../../public//images/logo.png")}
+            />
             <Text style={styles.subtext}>Humdum</Text>
           </View>
 

@@ -75,7 +75,7 @@ export default class Register extends Component {
       <View behavior="padding" style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#16a085" />
         <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require("./images/logo.png")} />
+          <Image style={styles.logo} source={require("../../../public/images/logo.png")} />
           <Text style={styles.subtext}>Sign Up</Text>
         </View>
         <KeyboardAvoidingView>

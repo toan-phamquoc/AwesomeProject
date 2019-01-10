@@ -1,9 +1,7 @@
+
 import React from "react";
-import AppNavigator from "./AppNavigator";
-import { createAppContainer } from "react-navigation";
-
-const AppContainer = createAppContainer(AppNavigator);
-
+import AppContainer from "./RootNavigator";
+import Header from "./screens//partials/header"
 export default class App extends React.Component {
   constructor(props) {
     super(props);

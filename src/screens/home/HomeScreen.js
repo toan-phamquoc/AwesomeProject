@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, Button, Image, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import {Icon} from "react-native-elements"
 import TestService from "../../services/TestService";
 import MyHeader from "../partials/header";
 export default class HomeScreen extends Component {
   static navigationOptions = {
     tabBarLabel: null,
     title: null,
-    tabBarIcon: () => <Icon name="home" color="black" />
+    tabBarIcon: () => <Icon name="home" color="black" type="font-awesome" />
   };
 
   constructor(props) {

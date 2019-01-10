@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, FlatList } from "react-native";
-import { Avatar, List, ListItem } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { Header, Avatar, List, ListItem, Icon, SearchBar } from "react-native-elements";
 
 export default class FriendScreen extends Component {
   constructor(props) {
     super(props);
+    this.timeout = 0;
     this.state = {
+      showLoadingIcon: false,
       list: [
         {
           name: "Amy Farha",
@@ -28,25 +29,58 @@ export default class FriendScreen extends Component {
     //tabBarLabel: "Profile",
     tabBarLabel: null,
     title: null,
-    tabBarIcon: () => <Icon name="user-friends" color="black" />
+    tabBarIcon: () => <Icon name="users" color="black" type="entypo" />
   };
 
+  searchFriends(stringKey) {
+    this.setState({ showLoadingIcon: true })
+    console.log("search friend show loading true>>>", this.state.showLoadingIcon);
+    this.timeout = setTimeout(() => {
+      //search function
+      console.log("search friend>>>", stringKey);
+    }, 1000)
+    this.setState({ showLoadingIcon: false })
+    console.log("search friend show loading>>>", this.state.showLoadingIcon);
+  }
   render() {
     return (
       <View>
-        <Text>Friend page</Text>
-        <List containerStyle={{ marginBottom: 20 }}>
-          {this.state.list.map(l => (
-            <ListItem
-              roundAvatar
-              avatar={{ uri: l.avatar_url }}
-              key={l.name}
-              title={l.name}
-              subtitle={l.subtitle}
+        <SearchBar
+          round={true}
+          showLoadingIcon={this.state.showLoadingIcon}
+          searchIcon={{ size: 24 }}
+          platform="android"
+          cancelIcon={{ type: 'font-awesome', name: 'chevron-left' }}
+          placeholder='Type Here...'
+          onChangeText={stringKey => this.searchFriends(stringKey)}
+        />
+        <ScrollView>
+          <List containerStyle={{
+            marginBottom: 20
+          }}>
+            {this.state.list.map(l => (
+              <ListItem
+                containerStyle={{
+                  marginBottom: 0, borderTopWidth: 0,
+                  borderBottomWidth: 0,
+                  borderBottomColor: "white"
+                }}
+                roundAvatar
+                avatar={{ uri: l.avatar_url }}
+                key={l.name}
+                title={l.name}
+                subtitle={l.subtitle}
+                hideChevron={true}
+                badge={{
+                  value: 3,
+                  textStyle: { color: 'orange' },
+                  containerStyle: { marginTop: 0 }
+                }}
               //onPress={alert("click")}
-            />
-          ))}
-        </List>
+              />
+            ))}
+          </List>
+        </ScrollView>
       </View>
     );
   }

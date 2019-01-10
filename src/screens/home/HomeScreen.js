@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, Button, Image, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import TestService from "../../services/TestService";
-
-// const TestList = ({ items }) => {
-//   const listItems = items.map(item => <li>{item.title}</li>);
-//   return <ul>{listItems}</ul>;
-// };
-
+import MyHeader from "../partials/header";
 export default class HomeScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: "Home",
-    // Note: By default the icon is only shown on iOS. Search the showIcon option
-    // below.
-    tabBarIcon: tintColor => <Icon name="home" size={26} color="#900" />
+    tabBarLabel: null,
+    title: null,
+    tabBarIcon: () => <Icon name="home" color="black" />
   };
 
   constructor(props) {

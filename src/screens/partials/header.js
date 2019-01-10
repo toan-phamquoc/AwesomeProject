@@ -14,14 +14,21 @@ import {
 } from "react-native";
 
 class MyHeader extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <Header
         leftComponent={{ icon: "menu", color: "#fff" }}
         centerComponent={{ text: "MY TITLE", style: { color: "#fff" } }}
-        rightComponent={{ icon: "home", color: "#fff" }}
+        rightComponent={{
+          icon: "home",
+          color: "#fff",
+          onPress: () => this.props.navigation.openDrawer()
+        }}
       />
     );
   }
-};
-export default MyHeader
+}
+export default MyHeader;

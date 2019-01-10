@@ -10,7 +10,8 @@ import {
 
 import MenuScreen from "./screens/menu/MenuScreen";
 import HomeScreen from "./screens/home/HomeScreen";
-import DummyScreen from "./screens/home/DummyScreen";
+import FriendScreen from "./screens/home/FriendScreen";
+import SettingScreen from "./screens/home/SettingScreen";
 
 class MyHomeScreen extends Component {
   static navigationOptions = {
@@ -72,6 +73,9 @@ const styles = StyleSheet.create({
 
 export const MyDrawerScreen = DrawerNavigator(
   {
+    Home: {
+      screen: HomeScreen
+    },
     Notifications: {
       screen: MyNotificationsScreen
     }
@@ -89,37 +93,32 @@ export const MyDrawerScreen = DrawerNavigator(
 export const MyTabScreen = createMaterialTopTabNavigator(
   {
     Main: {
-      screen: MyDrawerScreen,
-      navigationOptions: {
-        title: "Main",
-        headerStyle: {
-          backgroundColor: "#16a085",
-          elevation: null
-        },
-        header: null
-      }
+      screen: HomeScreen
     },
-    Dummy: {
-      screen: DummyScreen
+    Friend: {
+      screen: FriendScreen
     },
-    Dummy2: {
-      screen: DummyScreen
+    Setting: {
+      screen: SettingScreen
     }
   },
   {
-    tabBarPosition: "bottom",
+    swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#e91e63",
-      showIcon: true
-    },
-    swipeEnabled: true,
-    activeTintColor: "#e58f19",
-    activeBackgroundColor: "#a9c3d2",
-    inactiveTintColor: "#666",
-    labelStyle: {
-      fontSize: 22,
-      padding: 12
+      activeTintColor: "#ffffff",
+      inactiveTintColor: "#ffffff",
+      showIcon: true,
+      showLabel: false,
+      // labelStyle: {
+      //   fontSize: 22,
+      //   padding: 5
+      // },
+      tabStyle: {
+      },
+      style: {
+        backgroundColor: "#ffffff"
+      }
     }
   }
 );

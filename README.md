@@ -17,3 +17,6 @@
   * run adb devices (list devices attached)
   * react-native run-android
   * read more : https://jitblog.net/react-native-with-memu-emulator/
+
+
+https://github.com/akveo/react-native-ui-kitten-demo-app

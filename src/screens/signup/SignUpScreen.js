@@ -12,6 +12,11 @@ import {
   AsyncStorage,
   TouchableOpacity
 } from "react-native";
+import Logo from './components/Logo';
+import Form from './components/Form';
+import Wallpaper from './components/Wallpaper';
+import ButtonSubmit from './components/ButtonSubmit';
+import SignupSection from './components/SignUpSection';
 
 import firebase from "react-native-firebase";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -72,71 +77,78 @@ export default class Register extends Component {
 
   render() {
     return (
-      <View behavior="padding" style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#16a085" />
-        <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require("../../../public/images/logo.png")} />
-          <Text style={styles.subtext}>Sign Up</Text>
-        </View>
-        <KeyboardAvoidingView>
-          <Text style={{ color: "red" }}> {this.state.errorMessage} </Text>
-          <TextInput
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-            style={styles.input}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            ref={input => (this.emailInput = input)}
-            onSubmitEditing={() => this.passwordCInput.focus()}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Email"
-          />
-          <TextInput
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            ref={input => (this.passwordCInput = input)}
-            onSubmitEditing={() => this.passwordInput.focus()}
-            returnKeyType="next"
-            secureTextEntry
-          />
-          <TextInput
-            value={this.state.password}
-            onChangeText={password_confirmation =>
-              this.setState({ password_confirmation })
-            }
-            style={styles.input}
-            placeholder="Confirm Password"
-            secureTextEntry={true}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="go"
-            secureTextEntry
-            ref={input => (this.passwordInput = input)}
-          />
-        </KeyboardAvoidingView>
-        <TouchableHighlight
-          onPress={this.onRegisterPress.bind(this)}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableHighlight>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate("Login")}
-            title="Login"
-          >
-            Log In
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.errorTextStyle}>{this.state.error}</Text>
-        <Spinner visible={this.state.loading} />
-      </View>
+      <Wallpaper>
+        <Logo />
+        <Form />
+        {/*
+        <ButtonSubmit /> */}
+      </Wallpaper>
+      <Spinner visible={this.state.loading} />
+      // <View behavior="padding" style={styles.container}>
+      //   <StatusBar barStyle="light-content" backgroundColor="#16a085" />
+      //   <View style={styles.logoContainer}>
+      //     <Image style={styles.logo} source={require("../../../public/images/logo.png")} />
+      //     <Text style={styles.subtext}>Sign Up</Text>
+      //   </View>
+      //   <KeyboardAvoidingView>
+      //     <Text style={{ color: "red" }}> {this.state.errorMessage} </Text>
+      //     <TextInput
+      //       value={this.state.email}
+      //       onChangeText={email => this.setState({ email })}
+      //       style={styles.input}
+      //       placeholderTextColor="rgba(255,255,255,0.7)"
+      //       returnKeyType="next"
+      //       ref={input => (this.emailInput = input)}
+      //       onSubmitEditing={() => this.passwordCInput.focus()}
+      //       keyboardType="email-address"
+      //       autoCapitalize="none"
+      //       autoCorrect={false}
+      //       placeholder="Email"
+      //     />
+      //     <TextInput
+      //       value={this.state.password}
+      //       onChangeText={password => this.setState({ password })}
+      //       style={styles.input}
+      //       placeholder="Password"
+      //       secureTextEntry={true}
+      //       placeholderTextColor="rgba(255,255,255,0.7)"
+      //       ref={input => (this.passwordCInput = input)}
+      //       onSubmitEditing={() => this.passwordInput.focus()}
+      //       returnKeyType="next"
+      //       secureTextEntry
+      //     />
+      //     <TextInput
+      //       value={this.state.password}
+      //       onChangeText={password_confirmation =>
+      //         this.setState({ password_confirmation })
+      //       }
+      //       style={styles.input}
+      //       placeholder="Confirm Password"
+      //       secureTextEntry={true}
+      //       placeholderTextColor="rgba(255,255,255,0.7)"
+      //       returnKeyType="go"
+      //       secureTextEntry
+      //       ref={input => (this.passwordInput = input)}
+      //     />
+      //   </KeyboardAvoidingView>
+      //   <TouchableHighlight
+      //     onPress={this.onRegisterPress.bind(this)}
+      //     style={styles.button}
+      //   >
+      //     <Text style={styles.buttonText}>Register</Text>
+      //   </TouchableHighlight>
+      //   <TouchableOpacity style={styles.button}>
+      //     <Text
+      //       style={styles.buttonText}
+      //       onPress={() => this.props.navigation.navigate("Login")}
+      //       title="Login"
+      //     >
+      //       Log In
+      //     </Text>
+      //   </TouchableOpacity>
+      //   <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+      //   <Spinner visible={this.state.loading} />
+      // </View>
     );
   }
 }

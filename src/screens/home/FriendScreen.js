@@ -1,87 +1,95 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import { Header, Avatar, List, ListItem, Icon, SearchBar } from "react-native-elements";
+import {
+  Header,
+  Avatar,
+  List,
+  ListItem,
+  Icon,
+  SearchBar
+} from "react-native-elements";
+import testService from "../../services/TestService";
 
 export default class FriendScreen extends Component {
   constructor(props) {
     super(props);
     this.timeout = 0;
     this.state = {
+      stringKey: "",
       showLoadingIcon: false,
-      list: [
-        {
-          name: "Amy Farha",
-          avatar_url:
-            "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-          subtitle: "Vice President"
-        },
-        {
-          name: "Chris Jackson",
-          avatar_url:
-            "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-          subtitle: "Vice Chairman"
-        }
-      ]
+      friendListFilted: [],
+      friendList: []
     };
   }
-
+  async componentDidMount() {
+    const service = new testService();
+    const rs = await service.getFriendList("456");
+    this.setState({ friendListFilted: rs.data, friendList: rs.data });
+  }
   static navigationOptions = {
-    //tabBarLabel: "Profile",
     tabBarLabel: null,
     title: null,
     tabBarIcon: () => <Icon name="users" color="black" type="entypo" />
   };
 
   searchFriends(stringKey) {
-    this.setState({ showLoadingIcon: true })
-    console.log("search friend show loading true>>>", this.state.showLoadingIcon);
+    this.setState({ showLoadingIcon: true, stringKey: stringKey });
     this.timeout = setTimeout(() => {
-      //search function
-      console.log("search friend>>>", stringKey);
-    }, 1000)
-    this.setState({ showLoadingIcon: false })
-    console.log("search friend show loading>>>", this.state.showLoadingIcon);
+      const newData = this.state.friendList.filter(item => {
+        const itemData = `${item.name.title.toUpperCase()}   
+        ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+        const textData = stringKey.toUpperCase();
+
+        return itemData.indexOf(textData) > -1;
+      });
+      this.setState({ friendListFilted: newData, showLoadingIcon: false });
+    }, 1000);
   }
   render() {
     return (
-      <View>
+      < View >
         <SearchBar
           round={true}
           showLoadingIcon={this.state.showLoadingIcon}
           searchIcon={{ size: 24 }}
+          clearIcon
           platform="android"
-          cancelIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-          placeholder='Type Here...'
+          value={this.state.stringKey}
+          placeholder="Type Here..."
           onChangeText={stringKey => this.searchFriends(stringKey)}
         />
         <ScrollView>
-          <List containerStyle={{
-            marginBottom: 20
-          }}>
-            {this.state.list.map(l => (
+          <List
+            containerStyle={{
+              marginBottom: 20
+            }}
+          >
+            {this.state.friendListFilted.map((l, i) => (
               <ListItem
+                onPress={() => { alert(`click ${l.name.first}`) }}
                 containerStyle={{
-                  marginBottom: 0, borderTopWidth: 0,
+                  marginBottom: 0,
+                  borderTopWidth: 0,
                   borderBottomWidth: 0,
                   borderBottomColor: "white"
                 }}
                 roundAvatar
-                avatar={{ uri: l.avatar_url }}
-                key={l.name}
-                title={l.name}
-                subtitle={l.subtitle}
+                avatar={{ uri: l.picture.thumbnail }}
+                key={i}
+                title={l.name.first}
+                subtitle={l.name.last}
                 hideChevron={true}
                 badge={{
                   value: 3,
-                  textStyle: { color: 'orange' },
+                  textStyle: { color: "orange" },
                   containerStyle: { marginTop: 0 }
                 }}
-              //onPress={alert("click")}
               />
-            ))}
+            ))
+            }
           </List>
         </ScrollView>
-      </View>
+      </View >
     );
   }
 }

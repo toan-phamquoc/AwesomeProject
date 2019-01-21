@@ -1,87 +1,3 @@
-// // Login.js
-// import React from "react";
-// import {
-//   StyleSheet,
-//   Text,
-//   TextInput,
-//   View,
-//   Button,
-//   AsyncStorage
-// } from "react-native";
-// import firebase from "react-native-firebase";
-
-// export default class LoginScreen extends React.Component {
-//   state = {
-//     email: "",
-//     password: "",
-//     errorMessage: null
-//   };
-//   handleLogin = () => {
-//     const { email, password } = this.state;
-
-//     firebase
-//       .auth()
-//       .signInWithEmailAndPassword(email, password)
-//       .then(loggedUser => {
-//         AsyncStorage.setItem('@app:session', loggedUser.user.token);
-//         this.props.navigation.navigate("Home", {
-//           currentUser: loggedUser.user
-//         });
-//       })
-//       .catch(error =>
-//         this.setState({
-//           errorMessage: error.message
-//         })
-//       );
-//   };
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text> Login </Text>
-//         {this.state.errorMessage && (
-//           <Text style={{ color: "red" }}> {this.state.errorMessage} </Text>
-//         )}
-//         <TextInput
-//           style={styles.textInput}
-//           autoCapitalize="none"
-//           placeholder="Email"
-//           onChangeText={email => this.setState({ email })}
-//           value={this.state.email}
-//         />
-
-//         <TextInput
-//           secureTextEntry
-//           style={styles.textInput}
-//           autoCapitalize="none"
-//           placeholder="Password"
-//           onChangeText={password => this.setState({ password })}
-//           value={this.state.password}
-//         />
-//         <Button title="Login" onPress={this.handleLogin.bind(this)} />
-//         <Button
-//           title="Don't have an account? Sign Up"
-//           onPress={() => this.props.navigation.navigate("SignUp")}
-//         />
-//       </View>
-//     );
-//   }
-// }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center"
-//   },
-//   textInput: {
-//     height: 40,
-//     width: "90%",
-//     borderColor: "gray",
-//     borderWidth: 1,
-//     marginTop: 8
-//   }
-// });
-
 import React, { Component } from "react";
 import {
   AppRegistry,
@@ -95,7 +11,11 @@ import {
   Text, // Renders text
   View // Container component
 } from "react-native";
-
+import Logo from './components/Logo';
+import Form from './components/Form';
+import Wallpaper from './components/Wallpaper';
+import ButtonSubmit from './components/ButtonSubmit';
+import SignupSection from './components/SignUpSection';
 import { StackNavigator } from "react-navigation";
 import Spinner from "react-native-loading-spinner-overlay";
 import firebase from "react-native-firebase";
@@ -162,71 +82,85 @@ export default class Login extends Component {
         });
     }
   }
+
+  signUpPress = () =>{
+    this.props.navigation.navigate('SignUp')
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#16a085" />
-        <View behavior="padding" style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Image
-              style={styles.logo}
-              source={require("../../../public//images/logo.png")}
-            />
-            <Text style={styles.subtext}>Humdum</Text>
-          </View>
+      //<View>
+      <Wallpaper>
+        <Logo />
+        <Form />
+        <SignupSection onSignUpPress= {this.signUpPress.bind(this)}/>
+        <ButtonSubmit />
+      </Wallpaper>
+      //</View>
+      // <View style={styles.container}>
+      //   <StatusBar barStyle="light-content" backgroundColor="#16a085" />
+      //   <View behavior="padding" style={styles.container}>
+      //     <View style={styles.logoContainer}>
+      //       <Image
+      //         style={styles.logo}
+      //         source={require("../../../public//images/logo.png")}
+      //       />
+      //       <Text style={styles.subtext}>Humdum</Text>
+      //     </View>
 
-          <KeyboardAvoidingView style={styles.keyboard}>
-            <Text style={{ color: "red" }}> {this.state.errorMessage} </Text>
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor="rgba(255,255,255,0.7)"
-              returnKeyType="next"
-              onSubmitEditing={() => this.passwordInput.focus()}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={this.state.email}
-              onChangeText={email => this.setState({ email })}
-            />
-            <TextInput
-              placeholder="Password"
-              placeholderTextColor="rgba(255,255,255,0.7)"
-              returnKeyType="go"
-              secureTextEntry
-              ref={input => (this.passwordInput = input)}
-              value={this.state.password}
-              onChangeText={password => this.setState({ password })}
-            />
+      //     <KeyboardAvoidingView style={styles.keyboard}>
+      //       <Text style={{ color: "red" }}> {this.state.errorMessage} </Text>
+      //       <TextInput
+      //         placeholder="Email"
+      //         placeholderTextColor="rgba(255,255,255,0.7)"
+      //         returnKeyType="next"
+      //         onSubmitEditing={() => this.passwordInput.focus()}
+      //         keyboardType="email-address"
+      //         autoCapitalize="none"
+      //         autoCorrect={false}
+      //         value={this.state.email}
+      //         onChangeText={email => this.setState({ email })}
+      //       />
+      //       <TextInput
+      //         placeholder="Password"
+      //         placeholderTextColor="rgba(255,255,255,0.7)"
+      //         returnKeyType="go"
+      //         secureTextEntry
+      //         ref={input => (this.passwordInput = input)}
+      //         value={this.state.password}
+      //         onChangeText={password => this.setState({ password })}
+      //       />
 
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={this.onLoginPress.bind(this)}
-            >
-              <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
-          </KeyboardAvoidingView>
-        </View>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate("SignUp")}
-            title="Sign up"
-          >
-            Sign up
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate("ForgetPassword")}
-            title="Forget Password"
-          >
-            Forget Password
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.errorTextStyle}>{this.state.error}</Text>
-        <Spinner visible={this.state.loading} />
-      </View>
+      //       <TouchableOpacity
+      //         style={styles.buttonContainer}
+      //         onPress={this.onLoginPress.bind(this)}
+      //       >
+      //         <Text style={styles.buttonText}>LOGIN</Text>
+      //       </TouchableOpacity>
+      //     </KeyboardAvoidingView>
+      //   </View>
+      //   <TouchableOpacity style={styles.button}>
+      //     <Text
+      //       style={styles.buttonText}
+      //       onPress={() => this.props.navigation.navigate("SignUp")}
+      //       title="Sign up"
+      //     >
+      //       Sign up
+      //     </Text>
+      //   </TouchableOpacity>
+      //   <TouchableOpacity style={styles.button}>
+      //     <Text
+      //       style={styles.buttonText}
+      //       onPress={() => this.props.navigation.navigate("ForgetPassword")}
+      //       title="Forget Password"
+      //     >
+      //       Forget Password
+      //     </Text>
+      //   </TouchableOpacity>
+      //   <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+      //   <Spinner visible={this.state.loading} />
+      // </View>
+
     );
   }
 }

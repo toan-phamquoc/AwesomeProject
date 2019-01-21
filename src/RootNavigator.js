@@ -53,8 +53,9 @@ const RootNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Main"
+    initialRouteName: "SignUp"
   }
 );
 
 export default RootNavigator;
+

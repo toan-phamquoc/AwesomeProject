@@ -8,9 +8,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Text
 } from 'react-native';
-import { Icon } from "react-native-elements"
 const usernameImg = require('../images/username.png');
 const passwordImg = require('../images/password.png');
 const eyeImg = require('../images/eye_black.png');
@@ -20,12 +20,12 @@ export default class Form extends Component {
     super(props);
     this.state = {
       showPass: true,
-      press: false,
+      press: false
     };
     this.showPass = this.showPass.bind(this);
   }
 
-  showPass() {
+  showPass() { 
     this.state.press === false
       ? this.setState({ showPass: false, press: true })
       : this.setState({ showPass: true, press: false });
@@ -34,6 +34,9 @@ export default class Form extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View>
+          <Text style={{ color: "red" }}> {this.props.state.errorMessage} </Text>
+        </View>
         <View style={styles.inputWrapper}>
           <Image source={usernameImg} style={styles.inlineImg} />
           <TextInput
@@ -44,6 +47,8 @@ export default class Form extends Component {
             autoCorrect={false}
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
+            value={this.props.state.email}
+            onChangeText={email => this.props.setState({ email })}
           />
         </View>
         <View style={styles.inputWrapper}>
@@ -57,6 +62,8 @@ export default class Form extends Component {
             autoCorrect={false}
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
+            value={this.props.state.password}
+            onChangeText={password => this.props.setState({ password })}
           />
         </View>
         <TouchableOpacity
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
   },
   btnEye: {
     position: 'absolute',
-    top: 60,
+    top: 80,
     right: 28,
   },
   iconEye: {

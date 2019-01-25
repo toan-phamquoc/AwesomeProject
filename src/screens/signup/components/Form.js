@@ -72,13 +72,14 @@ export default class Form extends Component {
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
           />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.btnEye}
+            onPress={this.showPass}>
+            <Image source={eyeImg} style={styles.iconEye} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.btnEye}
-          onPress={this.showPass}>
-          <Image source={eyeImg} style={styles.iconEye} />
-        </TouchableOpacity>
+
       </KeyboardAvoidingView>
     );
   }
@@ -98,13 +99,14 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   container: {
-    flex: 1,
+    flex: 1.7,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   btnEye: {
     position: 'absolute',
-    top: 60,
+    top: 90,
     right: 28,
   },
   iconEye: {
@@ -122,5 +124,7 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     flex: 1,
+    height: 70,
+    marginVertical: 10
   },
 });

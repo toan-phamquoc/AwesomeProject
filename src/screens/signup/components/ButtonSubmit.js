@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
-import spinner from '../images/loading.gif';
+//import spinner from '../images/loading.gif';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -82,7 +82,7 @@ export default class ButtonSubmit extends Component {
             {this.state.isLoading ? (
               <Image source={spinner} style={styles.image} />
             ) : (
-                <Text style={styles.text}>LOGIN</Text>
+                <Text style={styles.text}>SING UP</Text>
               )}
           </TouchableOpacity>
           <Animated.View
@@ -97,9 +97,9 @@ export default class ButtonSubmit extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: -95,
+    top: 0,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   button: {
     alignItems: 'center',

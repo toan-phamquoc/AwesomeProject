@@ -10,7 +10,7 @@ export default class SignupSection extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.text}
-          onPress={this.props.onSignUpPress}>Create Account</Text>
+          onPress={this.props.onLogInPress}>Log in</Text>
         <Text style={styles.text}>Forgot Password?</Text>
       </View>
     );
@@ -23,7 +23,7 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 65,
+    top: 0,
     width: DEVICE_WIDTH,
     flexDirection: 'row',
     justifyContent: 'space-around',

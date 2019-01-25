@@ -8,11 +8,11 @@ import {
   createMaterialTopTabNavigator
 } from "react-navigation";
 
-import MenuScreen from "./screens/menu/MenuScreen";
-import HomeScreen from "./screens/home/HomeScreen";
-import FriendScreen from "./screens/home/FriendScreen";
-import SettingScreen from "./screens/home/SettingScreen";
-
+import MenuScreen from './screens/menu/MenuScreen';
+import HomeScreen from './screens/home/HomeScreen';
+import FriendScreen from './screens/home/FriendScreen';
+import SettingScreen from './screens/home/SettingScreen';
+import ChatScreen from './screens/chat/ChatScreen'
 class MyHomeScreen extends Component {
   static navigationOptions = {
     drawerLabel: "Home",
@@ -97,6 +97,9 @@ export const MyTabScreen = createMaterialTopTabNavigator(
     },
     Friend: {
       screen: FriendScreen
+    },
+    Chat: {
+      screen: ChatScreen
     },
     Setting: {
       screen: SettingScreen

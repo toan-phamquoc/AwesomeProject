@@ -57,12 +57,13 @@ export default class Login extends Component {
     header: null
   };
 
-  async onLoginPress() {
+  async loginPress() {
     this.setState({ errorMessage: "", loading: true });
     const { email, password } = this.state;
-    await AsyncStorage.setItem("email", email);
-    await AsyncStorage.setItem("password", password);
-    console.log("onLogin");
+    console.log("onLogin>>>>", email, password);
+    //await AsyncStorage.setItem("email", email);
+    //await AsyncStorage.setItem("password", password);
+    console.log("onLogin", email, password);
     if (email.trim() === "" || password.trim() === "") {
       this.setState({
         errorMessage: "Email and Password required.",
@@ -83,7 +84,7 @@ export default class Login extends Component {
     }
   }
 
-  signUpPress = () =>{
+  signUpPress = () => {
     this.props.navigation.navigate('SignUp')
   }
 
@@ -92,9 +93,12 @@ export default class Login extends Component {
       //<View>
       <Wallpaper>
         <Logo />
-        <Form />
-        <SignupSection onSignUpPress= {this.signUpPress.bind(this)}/>
-        <ButtonSubmit />
+        <Form state={this.state}
+          setState={this.setState.bind(this)}
+        />
+        <ButtonSubmit onLoginPress={this.loginPress.bind(this)} />
+        <SignupSection onSignUpPress={this.signUpPress.bind(this)} />
+        <Spinner visible={this.state.loading} />
       </Wallpaper>
       //</View>
       // <View style={styles.container}>

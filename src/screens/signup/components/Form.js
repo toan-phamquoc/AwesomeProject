@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Text
 } from 'react-native';
 import { Icon } from "react-native-elements"
 const repeatPasswordImg = require('../images/repeat.png');
@@ -35,6 +36,9 @@ export default class Form extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View>
+          <Text style={{ color: "red" }}> {this.props.state.errorMessage} </Text>
+        </View>
         <View style={styles.inputWrapper}>
           <Image source={usernameImg} style={styles.inlineImg} />
           <TextInput
@@ -45,6 +49,8 @@ export default class Form extends Component {
             autoCorrect={false}
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
+            value={this.props.state.email}
+            onChangeText={email => this.props.setState({ email })}
           />
         </View>
         <View style={styles.inputWrapper}>
@@ -58,6 +64,8 @@ export default class Form extends Component {
             autoCorrect={false}
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
+            value={this.props.state.password}
+            onChangeText={password => this.props.setState({ password })}
           />
         </View>
         <View style={styles.inputWrapper}>

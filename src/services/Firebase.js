@@ -3,6 +3,28 @@ import firebase from "react-native-firebase";
 class MyFirebase {
   constructor() {
   }
+
+  signIn(email, password) {
+    return firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        return user;
+      })
+      .catch(error => { throw new Error(error) });
+  }
+
+  signUp(email, password) {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        const user = firebase.auth().currentUser;
+        this.storeUserProfile({ email: user.email, displayName: user.displayName, phoneNumber: user.phoneNumber, photoURL: 'https://firebasestorage.googleapis.com/v0/b/awesomeproject-6d350.appspot.com/o/avatar%2Fmedium-default-avatar.png?alt=media&token=71479c78-862a-4916-ab17-9948b7e61bb2' })
+        return user;
+      }).catch(error => { throw new Error(error) });
+  }
+
   get ref() {
     return firebase.database().ref('Messages/');
   }
@@ -34,6 +56,10 @@ class MyFirebase {
     this.ref.off();
   }
 
+  getCurrentUser() {
+    return this.getUserProfile(this.uid);
+  }
+
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
@@ -50,6 +76,19 @@ class MyFirebase {
 
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
+  }
+
+  async getAllUser() {
+    console.log('get all users');
+    let rs = [];
+
+    await firebase.firestore()
+      .collection(`Users`)
+      .get().then((querySnapshot) => {
+        rs = querySnapshot.docs.map(doc => doc.data());
+      }).catch(error => { throw new Error(error) });
+
+    return rs;
   }
 
   getConversationId(userIds) {
@@ -84,7 +123,6 @@ class MyFirebase {
     }
   };
 
-  // 3.
   sendMessage = (messages, receiverId) => {
     const childPath = this.uid > receiverId ? this.uid + receiverId : receiverId + this.uid;
     firebase.database().ref('Messages')
@@ -94,6 +132,7 @@ class MyFirebase {
   };
 
   updateProfile(profile) {
+    console.log('update profile');
     firebase.auth()
       .currentUser
       .updateProfile({
@@ -101,5 +140,29 @@ class MyFirebase {
         photoURL: 'https://www.upsieutoc.com/images/2019/01/25/e0842f44-9baf-4cd7-9440-b02a05e1c334.th.png'
       }).catch(error => { throw new Error(error) });
   }
+
+  storeUserProfile(profile) {
+    console.log('store profile');
+    firebase.firestore()
+      .collection(`Users`)
+      .doc(`${this.uid}`)
+      .set({
+        uid: this.uid,
+        displayName: profile.displayName,
+        photoURL: profile.photoURL,
+        email: profile.email,
+        phoneNumber: profile.phoneNumber
+      }).catch(error => { throw new Error(error) });
+  }
+
+  getUserProfile(uid) {
+    console.log('get a user profile');
+    return firebase.firestore()
+      .collection(`Users`)
+      .doc(uid)
+      .get().then(doc => { return doc.data() })
+      .catch(error => { throw new Error(error) });
+  }
 }
+
 export default new MyFirebase();

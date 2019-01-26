@@ -9,6 +9,7 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage; // <-- Add this line
 import io.invertase.firebase.database.RNFirebaseDatabasePackage; // <-- Add this line
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
             new ReactVideoPackage(), new VectorIconsPackage(),
           new RNGestureHandlerPackage(), new RNFirebasePackage(), new RNFirebaseAuthPackage(),
-          new RNFirebaseDatabasePackage());
+          new RNFirebaseDatabasePackage(),
+          new RNFirebaseFirestorePackage());
     }
 
     @Override

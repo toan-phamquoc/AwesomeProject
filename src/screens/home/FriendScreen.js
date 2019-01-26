@@ -9,6 +9,7 @@ import {
   SearchBar
 } from "react-native-elements";
 import testService from "../../services/TestService";
+import MyFirebase from "../../services/Firebase";
 
 export default class FriendScreen extends Component {
   constructor(props) {
@@ -22,10 +23,10 @@ export default class FriendScreen extends Component {
     };
   }
   async componentDidMount() {
-    const service = new testService();
-    const rs = await service.getFriendList("456");
-    this.setState({ friendListFilted: rs.data, friendList: rs.data });
+    const allUser = await MyFirebase.getAllUser();
+    this.setState({ friendListFilted: allUser, friendList: allUser });
   }
+
   static navigationOptions = {
     tabBarLabel: null,
     title: null,
@@ -44,6 +45,9 @@ export default class FriendScreen extends Component {
       });
       this.setState({ friendListFilted: newData, showLoadingIcon: false });
     }, 1000);
+  }
+  onItemPress(uid) {
+
   }
   render() {
     return (
@@ -66,7 +70,7 @@ export default class FriendScreen extends Component {
           >
             {this.state.friendListFilted.map((l, i) => (
               <ListItem
-                onPress={() => { alert(`click ${l.name.first}`) }}
+                onPress={() => { alert(`click ${l.displayName}`) }}
                 containerStyle={{
                   marginBottom: 0,
                   borderTopWidth: 0,
@@ -74,10 +78,10 @@ export default class FriendScreen extends Component {
                   borderBottomColor: "white"
                 }}
                 roundAvatar
-                avatar={{ uri: l.picture.thumbnail }}
+                avatar={{ uri: l.photoUrl }}
                 key={i}
-                title={l.name.first}
-                subtitle={l.name.last}
+                title={l.displayName}
+                //subtitle={l.name.last}
                 hideChevron={true}
                 badge={{
                   value: 3,

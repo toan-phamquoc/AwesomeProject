@@ -18,7 +18,7 @@ import Wallpaper from './components/Wallpaper';
 import ButtonSubmit from './components/ButtonSubmit';
 import LoginSection from './components/LoginSection';
 
-import firebase from "react-native-firebase";
+import MyFirebase from "../../services/Firebase";
 import Spinner from "react-native-loading-spinner-overlay";
 
 export default class Register extends Component {
@@ -48,9 +48,9 @@ export default class Register extends Component {
     }
   };
 
-  async onRegisterPress() {
-    //this.setState({ error: "", loading: true });
+  async registerPress() {
     const { email, password } = this.state;
+    console.log('signUp');
     console.log(email);
     console.log(password);
     if (email.trim() === "" || password.trim() === "") {
@@ -58,9 +58,9 @@ export default class Register extends Component {
         errorMessage: "Email and Password required."
       });
     } else {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
+      console.log('sign up');
+      MyFirebase
+        .signUp(this.state.email, this.state.password)
         .then(() => {
           this.setState({ error: "", loading: false });
           this.props.navigation.navigate("Home");
@@ -69,85 +69,28 @@ export default class Register extends Component {
           this.setState({ errorMessage: error.message, loading: false });
         });
 
-      await AsyncStorage.setItem("email", email);
-      await AsyncStorage.setItem("password", password);
+      //await AsyncStorage.setItem("email", email);
+      //await AsyncStorage.setItem("password", password);
       this.setState({ loading: false });
     }
   }
 
-  logInPress = () =>{
+  logInPress = () => {
     this.props.navigation.navigate('Login')
   }
-  
+
   render() {
     return (
       <Wallpaper>
         <Logo />
-        <Form />
-        <ButtonSubmit />
-        <LoginSection onLogInPress= {this.logInPress.bind(this)}/>
+        <Form state={this.state}
+          setState={this.setState.bind(this)} />
+        <ButtonSubmit onRegisterPress={this.registerPress.bind(this)} />
+        <LoginSection onLogInPress={this.logInPress.bind(this)} />
+        <Spinner visible={this.state.loading} />
       </Wallpaper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1.2,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "#16a085",
-    padding: 20,
-    paddingTop: 10
-  },
-  logoContainer: {
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  logo: {
-    width: 200,
-    height: 200
-  },
-  input: {
-    height: 40,
-    width: 350,
-    marginBottom: 10,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#fff",
-    paddingHorizontal: 10
-  },
-  button: {
-    height: 50,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    alignSelf: "stretch",
-    marginTop: 10,
-    justifyContent: "center",
-    paddingVertical: 15,
-    marginBottom: 10
-  },
-  buttonText: {
-    fontSize: 18,
-    alignSelf: "center",
-    textAlign: "center",
-    color: "#FFF",
-    fontWeight: "700"
-  },
-  subtext: {
-    color: "#ffffff",
-    width: 160,
-    textAlign: "center",
-    fontSize: 35,
-    fontWeight: "bold",
-    marginTop: 20
-  },
-  errorTextStyle: {
-    color: "#E64A19",
-    alignSelf: "center",
-    paddingTop: 10,
-    paddingBottom: 10
-  }
-});
 
 AppRegistry.registerComponent("SignUp", () => SignUp);

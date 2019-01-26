@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { Avatar, List, ListItem, Icon } from "react-native-elements";
+import MyFirebase from '../../services/Firebase';
 
 export default class SettingScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentUser: {}
+    };
   }
   static navigationOptions = {
     //tabBarLabel: "Profile",
@@ -13,13 +17,17 @@ export default class SettingScreen extends Component {
     tabBarIcon: () => <Icon name="user-circle-o" color="black" type="font-awesome" />
   };
 
+  async componentDidMount() {
+    const currentUser = await MyFirebase.getCurrentUser();
+    this.setState({ currentUser })
+  }
+
   render() {
     return (
       <View>
         <ScrollView>
           <List containerStyle={{
             marginBottom: 0,
-            //backgroundColor: "red"
           }}>
             <ListItem
               containerStyle={{
@@ -27,8 +35,8 @@ export default class SettingScreen extends Component {
                 borderBottomColor: "white"
               }}
               roundAvatar
-              avatar={"https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"}
-              title={"Phạm Quốc Toàn"}
+              avatar={this.state.currentUser ? this.state.currentUser.photoURL : null}
+              title={this.state.currentUser ? this.state.currentUser.displayName : null}
               hideChevron={true}
               onPress={() => alert('Edit Profile')}
             />

@@ -20,7 +20,6 @@ export default class ChatScreen extends Component {
 
   componentDidMount() {
     const user = MyFirebase.GiftedChatUser;
-    console.log('last user>>>>', user);
 
     user ? this.setState({ currentUser: user }) : this.props.navigation.navigate('Login');
 

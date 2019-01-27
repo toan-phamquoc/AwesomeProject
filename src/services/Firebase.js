@@ -4,6 +4,10 @@ class MyFirebase {
   constructor() {
   }
 
+  signInByPhone(phoneNumber) {
+    return firebase.auth().signInWithPhoneNumber(phoneNumber);
+  }
+
   signIn(email, password) {
     return firebase
       .auth()

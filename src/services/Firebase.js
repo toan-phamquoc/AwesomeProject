@@ -29,29 +29,29 @@ class MyFirebase {
     return firebase.database().ref('Messages/');
   }
 
-  // on = callback => {
-  //   console.log('on>>', this.ref.limitToLast(20));
-  //   this.ref
-  //     .limitToLast(20)
-  //     .on('child_added', (snapshot) => {
-  //       callback(this.parse(snapshot));
-  //     });
-  // };
-  // parse = snapshot => {
+  on = callback => {
+    console.log('on>>', this.ref.limitToLast(20));
+    this.ref
+      .limitToLast(20)
+      .on('child_added', (snapshot) => {
+        callback(this.parse(snapshot));
+      });
+  };
+  parse = snapshot => {
 
-  //   const { timestamp: numberStamp, text, user } = snapshot.val();
-  //   const { key: _id } = snapshot;
-  //   const timestamp = new Date(numberStamp);
-  //   const message = {
-  //     _id,
-  //     timestamp,
-  //     text,
-  //     user,
-  //   };
-  //   console.log('snapshot>>', snapshot.val());
-  //   console.log('message>>', message);
-  //   return message;
-  // }
+    const { timestamp: numberStamp, text, user } = snapshot.val();
+    const { key: _id } = snapshot;
+    const timestamp = new Date(numberStamp);
+    const message = {
+      _id,
+      timestamp,
+      text,
+      user,
+    };
+    console.log('snapshot>>', snapshot.val());
+    console.log('message>>', message);
+    return message;
+  }
   off() {
     this.ref.off();
   }

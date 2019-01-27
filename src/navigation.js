@@ -5,14 +5,19 @@ import {
   TabNavigator,
   createBottomTabNavigator,
   createTabNavigator,
+  createNavigator,
+  createStackNavigator,
   createMaterialTopTabNavigator
 } from "react-navigation";
-
+import { Icon } from "react-native-elements";
 import MenuScreen from './screens/menu/MenuScreen';
 import HomeScreen from './screens/home/HomeScreen';
 import FriendScreen from './screens/home/FriendScreen';
+import ChatListScreen from './screens/chat/ChatListScreen';
 import SettingScreen from './screens/home/SettingScreen';
-import ChatScreen from './screens/chat/ChatScreen'
+import ChatDetailsScreen from './screens/chat/ChatDetailsScreen'
+import EditProfileScreen from './screens/profile/EditProfileScreen';
+
 class MyHomeScreen extends Component {
   static navigationOptions = {
     drawerLabel: "Home",
@@ -71,6 +76,28 @@ const styles = StyleSheet.create({
   }
 });
 
+export const MySettingStackScreen = createStackNavigator(
+  {
+    Setting: {
+      screen: SettingScreen
+    },
+    EditProfile: {
+      screen: EditProfileScreen
+    }
+  }
+);
+
+export const MyChatStackScreen = createStackNavigator(
+  {
+    Chat: {
+      screen: ChatListScreen
+    },
+    ChatDetails: {
+      screen: ChatDetailsScreen
+    }
+  }
+);
+
 export const MyDrawerScreen = DrawerNavigator(
   {
     Home: {
@@ -78,7 +105,7 @@ export const MyDrawerScreen = DrawerNavigator(
     },
     Notifications: {
       screen: MyNotificationsScreen
-    }
+    },
   },
   {
     contentComponent: MenuScreen,
@@ -89,7 +116,6 @@ export const MyDrawerScreen = DrawerNavigator(
     drawerToggleRoute: "DrawerToggle"
   }
 );
-
 export const MyTabScreen = createMaterialTopTabNavigator(
   {
     Main: {
@@ -99,11 +125,23 @@ export const MyTabScreen = createMaterialTopTabNavigator(
       screen: FriendScreen
     },
     Chat: {
-      screen: ChatScreen
+      screen: MyChatStackScreen,
+      navigationOptions: {
+        tabBarLabel: null,
+        title: null,
+        header: null,
+        tabBarIcon: () => <Icon name="message" color="black" type="material-community" />
+      }
     },
     Setting: {
-      screen: SettingScreen
-    }
+      screen: MySettingStackScreen,
+      navigationOptions: {
+        tabBarLabel: null,
+        title: null,
+        header: null,
+        tabBarIcon: () => <Icon name='user' color='black' type='entypo' />
+      }
+    },
   },
   {
     swipeEnabled: true,

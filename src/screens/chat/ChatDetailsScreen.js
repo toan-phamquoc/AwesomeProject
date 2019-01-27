@@ -5,30 +5,49 @@ import {
   ListView
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
-
+import { Icon } from "react-native-elements"
 import MyFirebase from '../../services/Firebase';
 
-export default class ChatScreen extends Component {
+export default class ChatDetailsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: null,
-      receiverId: 'QxOVHNPzx0WyW05D1KLJWc4u9aa1',
+      chatUser: null,
+      receiverId: props.navigation.state.params.uid,
       messages: null
     };
+    console.log('naviga uid', props.navigation.state.params.uid)
   };
 
-  componentDidMount() {
+  // static navigationOptions = {
+  //   tabBarLabel: null,
+  //   title: null,
+  //   tabBarIcon: () => <Icon name="message" color="black" type="material-community" />
+  // };
+
+  async componentDidMount() {
     const user = MyFirebase.GiftedChatUser;
 
     user ? this.setState({ currentUser: user }) : this.props.navigation.navigate('Login');
 
-    MyFirebase.getLastMessages(this.state.receiverId).then((lastMessages) => {
+    await MyFirebase.getUserProfile(this.state.receiverId).then(user => {
+      this.setState({
+        chatUser: {
+          _id: user.uid,
+          name: user.displayName,
+          avatar: user.photoURL
+        }
+      })
+    })
+
+    await MyFirebase.getLastMessages(this.state.receiverId).then((lastMessages) => {
+      lastMessages.map(mes => {
+        mes.user.name = this.state.chatUser.name;
+        mes.user.avatar = this.state.chatUser.avatar;
+      })
       this.setState({ messages: lastMessages });
     });
-    //console.log('last messages>>>>', lastMessages);
-
-
 
     // MyFirebase.on((message) => {
     //   console.log('subscribe data', message);
@@ -49,12 +68,6 @@ export default class ChatScreen extends Component {
     }));
     MyFirebase.sendMessage(messages, this.state.receiverId);
   };
-
-  // Fire.on(message =>
-  //   this.setState(previousState => ({
-  //     messages: GiftedChat.append(previousState.messages, message),
-  //   }))
-  // );
 
   render() {
     return (

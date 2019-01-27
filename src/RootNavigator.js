@@ -3,8 +3,7 @@ import { createStackNavigator } from "react-navigation";
 // import the different screens
 import SignUpScreen from "./screens/signup/SignUpScreen";
 import LoginScreen from "./screens/login/LoginScreen";
-import SettingScreen from "./screens/settings/SettingScreen";
-import { MyDrawerScreen, MyTabScreen } from "./navigation";
+import { MyDrawerScreen, MyTabScreen, MySettingStackScreen } from "./navigation";
 
 const RootNavigator = createStackNavigator(
   {
@@ -30,13 +29,13 @@ const RootNavigator = createStackNavigator(
         header: null
       }
     },
-    Setting: {
-      screen: SettingScreen,
-      navigationOptions: {
-        title: "Setting",
-        header: null
-      }
-    },
+    // Setting: {
+    //   screen: MySettingStackScreen,
+    //   navigationOptions: {
+    //     title: "Setting",
+    //     header: null
+    //   }
+    // },
     Main: {
       screen: MyTabScreen,
       navigationOptions: {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Button, Image, FlatList } from "react-native";
-import {Icon} from "react-native-elements"
+import {Icon} from "react-native-elements";
 import TestService from "../../services/TestService";
 import MyHeader from "../partials/header";
 export default class HomeScreen extends Component {

@@ -14,6 +14,7 @@ export default class SettingScreen extends Component {
     //tabBarLabel: "Profile",
     tabBarLabel: null,
     title: null,
+    header: null,
     tabBarIcon: () => <Icon name="user-circle-o" color="black" type="font-awesome" />
   };
 
@@ -24,10 +25,11 @@ export default class SettingScreen extends Component {
 
   render() {
     return (
-      <View>
-        <ScrollView>
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>
           <List containerStyle={{
             marginBottom: 0,
+            marginTop:0,
           }}>
             <ListItem
               containerStyle={{
@@ -38,7 +40,7 @@ export default class SettingScreen extends Component {
               avatar={this.state.currentUser ? this.state.currentUser.photoURL : null}
               title={this.state.currentUser ? this.state.currentUser.displayName : null}
               hideChevron={true}
-              onPress={() => alert('Edit Profile')}
+              onPress={() => this.props.navigation.navigate("EditProfile")}
             />
             <ListItem
               containerStyle={{
@@ -71,50 +73,13 @@ export default class SettingScreen extends Component {
   }
 }
 
-const tabStyles = StyleSheet.create({
-  icon: {
-    width: 26,
-    height: 26
-  },
-  filledButton: {
-    backgroundColor: "red"
-  },
-  filledButtonText: {
-    color: "white",
-    fontWeight: "bold"
-  }
-});
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16
+    margin: 0,
+    padding: 0
   },
-  itemContainer: {
-    flex: 1,
-
-    alignItems: 'center',
-    backgroundColor: '#F8F8FF',
-    padding: 8
+  scrollView:{
+    margin: 0,
+    padding: 0
   },
-  signOutText: {
-  },
-  icon: {
-    width: 26,
-    height: 26,
-    flexDirection: 'row',
-  },
-  profile: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 16,
-    padding: 16,
-    backgroundColor: '#F8F8FF'
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30
-  },
-  name: {
-    fontSize: 20
-  }
 })

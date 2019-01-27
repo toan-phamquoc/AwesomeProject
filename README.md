@@ -20,3 +20,4 @@
 
 
 https://github.com/akveo/react-native-ui-kitten-demo-app
+https://oblador.github.io/react-native-vector-icons/

@@ -18,6 +18,10 @@
   * react-native run-android
   * read more : https://jitblog.net/react-native-with-memu-emulator/
 
+# connect react-native to NOX
+  * run adb connect 127.0.0.1:62001
+  * read more: https://www.bignox.com/blog/how-to-connect-android-studio-with-nox-app-player-for-android-development-and-debug/
+
 
 https://github.com/akveo/react-native-ui-kitten-demo-app
 https://oblador.github.io/react-native-vector-icons/

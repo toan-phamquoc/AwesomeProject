@@ -8,7 +8,6 @@ import {
   Icon,
   SearchBar
 } from "react-native-elements";
-import testService from "../../services/TestService";
 import MyFirebase from "../../services/Firebase";
 
 export default class FriendScreen extends Component {
@@ -78,7 +77,7 @@ export default class FriendScreen extends Component {
                   borderBottomColor: "white"
                 }}
                 roundAvatar
-                avatar={{ uri: l.photoUrl }}
+                avatar={{ uri: l.photoURL }}
                 key={i}
                 title={l.displayName}
                 //subtitle={l.name.last}

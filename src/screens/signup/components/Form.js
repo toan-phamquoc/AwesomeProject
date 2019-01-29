@@ -15,6 +15,7 @@ import { Icon } from "react-native-elements"
 const repeatPasswordImg = require('../images/repeat.png');
 const usernameImg = require('../images/username.png');
 const passwordImg = require('../images/password.png');
+const personImg = require('../images/person.png');
 const eyeImg = require('../images/eye_black.png');
 
 export default class Form extends Component {
@@ -38,6 +39,20 @@ export default class Form extends Component {
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View>
           <Text style={{ color: "red" }}> {this.props.state.errorMessage} </Text>
+        </View>
+        <View style={styles.inputWrapper}>
+          <Image source={personImg} style={styles.inlineImg} />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Name"
+            autoCapitalize={'none'}
+            returnKeyType={'done'}
+            autoCorrect={false}
+            placeholderTextColor="white"
+            underlineColorAndroid="transparent"
+            value={this.props.state.name}
+            onChangeText={name => this.props.setState({ name })}
+          />
         </View>
         <View style={styles.inputWrapper}>
           <Image source={usernameImg} style={styles.inlineImg} />
@@ -79,6 +94,8 @@ export default class Form extends Component {
             autoCorrect={false}
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
+            value={this.props.state.passwordConfirmation}
+            onChangeText={passwordConfirmation => this.props.setState({ passwordConfirmation })}
           />
           <TouchableOpacity
             activeOpacity={0.7}
@@ -107,7 +124,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   container: {
-    flex: 1.7,
+    flex: 2,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-end',

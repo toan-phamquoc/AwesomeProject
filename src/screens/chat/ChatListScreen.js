@@ -69,7 +69,7 @@ export default class ChatListScreen extends Component {
           >
             {this.state.friendListFilted.map((l, i) => (
               <ListItem
-                onPress={() => { this.props.navigation.navigate("ChatDetails", { uid: l.uid }) }}
+                onPress={() => { this.props.navigation.navigate("ChatDetails", { uid: l.uid, name: l.displayName }) }}
                 containerStyle={{
                   marginBottom: 0,
                   borderTopWidth: 0,

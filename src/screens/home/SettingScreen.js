@@ -23,13 +23,17 @@ export default class SettingScreen extends Component {
     this.setState({ currentUser })
   }
 
+  async onSignOutPress() {
+    await MyFirebase.signOut()
+    this.props.navigation.navigate('Login')
+  }
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <List containerStyle={{
             marginBottom: 0,
-            marginTop:0,
+            marginTop: 0,
           }}>
             <ListItem
               containerStyle={{
@@ -40,7 +44,7 @@ export default class SettingScreen extends Component {
               avatar={this.state.currentUser ? this.state.currentUser.photoURL : null}
               title={this.state.currentUser ? this.state.currentUser.displayName : null}
               hideChevron={true}
-              onPress={() => this.props.navigation.navigate("EditProfile")}
+              onPress={() => this.props.navigation.navigate("EditProfile", { currentUser: this.state.currentUser })}
             />
             <ListItem
               containerStyle={{
@@ -52,7 +56,7 @@ export default class SettingScreen extends Component {
               title={"LogOut"}
               titleStyle={{ marginLeft: 12 }}
               hideChevron={true}
-              onPress={() => alert('Log Out')}
+              onPress={() => this.onSignOutPress()}
             />
             <ListItem
               containerStyle={{
@@ -78,7 +82,7 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0
   },
-  scrollView:{
+  scrollView: {
     margin: 0,
     padding: 0
   },

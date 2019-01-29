@@ -13,25 +13,25 @@ export default class ChatDetailsScreen extends Component {
     super(props);
     this.state = {
       currentUser: null,
-      chatUser: null,
-      receiverId: props.navigation.state.params.uid,
+      chatUser: {
+        _id: props.navigation.state.params.uid
+      },
       messages: null
     };
-    console.log('naviga uid', props.navigation.state.params.uid)
   };
 
-  // static navigationOptions = {
-  //   tabBarLabel: null,
-  //   title: null,
-  //   tabBarIcon: () => <Icon name="message" color="black" type="material-community" />
-  // };
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.state.params.name
+    }
+  };
 
   async componentDidMount() {
     const user = MyFirebase.GiftedChatUser;
 
     user ? this.setState({ currentUser: user }) : this.props.navigation.navigate('Login');
 
-    await MyFirebase.getUserProfile(this.state.receiverId).then(user => {
+    await MyFirebase.getUserProfile(this.state.chatUser._id).then(user => {
       this.setState({
         chatUser: {
           _id: user.uid,
@@ -41,7 +41,7 @@ export default class ChatDetailsScreen extends Component {
       })
     })
 
-    await MyFirebase.getLastMessages(this.state.receiverId).then((lastMessages) => {
+    await MyFirebase.getLastMessages(this.state.chatUser._id).then((lastMessages) => {
       lastMessages.map(mes => {
         mes.user.name = this.state.chatUser.name;
         mes.user.avatar = this.state.chatUser.avatar;
@@ -59,7 +59,7 @@ export default class ChatDetailsScreen extends Component {
 
 
   componentWillUnmount() {
-    //MyFirebase.off();
+    MyFirebase.off();
   }
 
   onSend(messages) {

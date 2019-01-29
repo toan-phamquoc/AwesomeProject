@@ -4,10 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  Animated,
-  Easing,
-  Image,
-  Alert,
   View,
 } from 'react-native';
 
@@ -25,9 +21,9 @@ export default class ButtonSubmit extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
-          onPress={this.props.onRegisterPress}
+          onPress={this.props.onLoginByPhonePress}
         >
-          <Text style={styles.text}>SIGN UP</Text>
+          <Text style={styles.text}>LOGIN WITH PHONE</Text>
         </TouchableOpacity>
       </View>
     );
@@ -36,7 +32,7 @@ export default class ButtonSubmit extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: .5,
+    flex: 1,
     top: 0,
     alignItems: 'center',
     justifyContent: 'center',
@@ -44,7 +40,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F035E0',
+    backgroundColor: '#DC8920',
     height: MARGIN,
     borderRadius: 20,
     zIndex: 100,

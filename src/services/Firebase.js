@@ -1,9 +1,13 @@
 import firebase from "react-native-firebase";
+import _ from 'lodash';
 
 class MyFirebase {
   constructor() {
   }
 
+  signOut() {
+    return firebase.auth().signOut();
+  }
   signInByPhone(phoneNumber) {
     return firebase.auth().signInWithPhoneNumber(phoneNumber);
   }
@@ -18,13 +22,13 @@ class MyFirebase {
       .catch(error => { throw new Error(error) });
   }
 
-  signUp(email, password) {
+  signUp(email, password, name) {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         const user = firebase.auth().currentUser;
-        this.storeUserProfile({ email: user.email, displayName: user.displayName, phoneNumber: user.phoneNumber, photoURL: 'https://firebasestorage.googleapis.com/v0/b/awesomeproject-6d350.appspot.com/o/avatar%2Fmedium-default-avatar.png?alt=media&token=71479c78-862a-4916-ab17-9948b7e61bb2' })
+        this.storeUserProfile({ email: user.email, displayName: name, phoneNumber: user.phoneNumber, photoURL: 'https://firebasestorage.googleapis.com/v0/b/awesomeproject-6d350.appspot.com/o/avatar.png?alt=media&token=b8dfc34e-d4a0-4301-8c86-d6e58f9aac52' })
         return user;
       }).catch(error => { throw new Error(error) });
   }
@@ -41,6 +45,7 @@ class MyFirebase {
         callback(this.parse(snapshot));
       });
   };
+
   parse = snapshot => {
 
     const { timestamp: numberStamp, text, user } = snapshot.val();
@@ -56,6 +61,7 @@ class MyFirebase {
     console.log('message>>', message);
     return message;
   }
+
   off() {
     this.ref.off();
   }
@@ -159,12 +165,32 @@ class MyFirebase {
       }).catch(error => { throw new Error(error) });
   }
 
+
+  updateUserProfile(profile) {
+    console.log('update profile');
+    let value = _.omit(profile, _.isUndefined);
+    return firebase.firestore()
+      .collection(`Users`)
+      .doc(`${this.uid}`)
+      .update(value).catch(error => { throw new Error(error) });
+  }
+
   getUserProfile(uid) {
     console.log('get a user profile');
     return firebase.firestore()
       .collection(`Users`)
       .doc(uid)
       .get().then(doc => { return doc.data() })
+      .catch(error => { throw new Error(error) });
+  }
+
+  uploadAvatar(uri, fileName) {
+    console.log('upload avatar on firebase storage');
+    return firebase.storage()
+      .ref('Avatar')
+      .child(`${this.uid} - ${fileName}`)
+      .putFile(uri)
+      .then(rs => { return rs.downloadURL })
       .catch(error => { throw new Error(error) });
   }
 }

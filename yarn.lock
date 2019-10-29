@@ -1605,6 +1605,11 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+  integrity sha1-eAqZyE59YAJgNhURxId2E78k9rs=
+
 base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
@@ -4022,6 +4027,11 @@ lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5, 
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
+lodash@^4.17.11:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -4395,9 +4405,9 @@ minizlib@^1.1.1:
     minipass "^2.2.1"
 
 mixin-deep@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
-  integrity sha512-8ZItLHeEgaqEvd5lYBXfm4EZSFCX29Jb9K+lAHhDKzReKBQKj3R+7NOF6tjqYi9t4oI8VUfaWITJQm86wnXGNQ==
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.2.tgz#1120b43dc359a785dce65b55b82e257ccf479566"
+  integrity sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
@@ -5169,6 +5179,14 @@ react-native-firebase@^5.2.0:
     opencollective-postinstall "^2.0.0"
     prop-types "^15.6.2"
 
+react-native-fs@^2.5.1:
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.16.1.tgz#a8f7e950eaf96e7cf3cf92a5340c5b1ab657d8af"
+  integrity sha512-bD/pkKwE585EPSimsakKXwJUa9RAZFLEel2jFsYaWObLERPcjnoYeIT8nVRImKSEP81EyTNCgXh5t2f3DWqI5g==
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^3.0.0"
+
 react-native-gesture-handler@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.12.tgz#99a22f90212df299245357dbd3a9a01c788f310b"
@@ -5191,6 +5209,16 @@ react-native-gifted-chat@^0.6.0:
     react-native-video "^3.2.1"
     uuid "3.3.0"
 
+react-native-image-picker@^0.26.7:
+  version "0.26.10"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+  integrity sha512-z6gAbru2E6SyGWm4ZTbiM9hPHZ5Tsl9kXGfRxW6YQXf9us7zybKoS7dKE1fQPsssv/OSvpPDKannJNncE+ATRA==
+
+react-native-image-resizer@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-resizer/-/react-native-image-resizer-1.1.0.tgz#90646bb6dbf0ccc81e53cba69130479e9198d88b"
+  integrity sha512-OgDOV/0J5ERy6qqu9PTSEiJmNkDrsJluqGM20Tj3JX1836VPO3oeIzQvd8pVdvBiuDq+Z6ZKrsy5SdxP8/O+Ig==
+
 react-native-lightbox@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-native-lightbox/-/react-native-lightbox-0.7.0.tgz#e52b4d7fcc141f59d7b23f0180de535e35b20ec9"
@@ -5212,6 +5240,16 @@ react-native-parsed-text@^0.0.20:
   dependencies:
     babel-plugin-check-es2015-constants "6.22.0"
     prop-types "^15.5.10"
+
+react-native-photo-upload@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-photo-upload/-/react-native-photo-upload-1.3.0.tgz#bf442bb5ee56abb15926e0281847116a413b98b7"
+  integrity sha512-6kd8luPwU2DfYovd3xvLayVN+OoW00cBQD4afYlHadQFA+WinTy+mXEgYG/QV4txDSLS1EArMBaCR6h2sq2JAA==
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-fs "^2.5.1"
+    react-native-image-picker "^0.26.7"
+    react-native-image-resizer "^1.0.0"
 
 react-native-router-flux@^4.0.6:
   version "4.0.6"
@@ -6450,6 +6488,11 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
+
+utf8@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-3.0.0.tgz#f052eed1364d696e769ef058b183df88c87f69d1"
+  integrity sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
